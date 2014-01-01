@@ -459,14 +459,17 @@ CDDBQuery::CDDBQuery(const char *server, int32 port)
 	fServerName(server),
 	fPort(port),
 	fConnected(false),
-	fState(kInitial)
+	fThread(0),
+	fState(kInitial),
+	fResult(B_OK)
 {
 }
 
 
 CDDBQuery::~CDDBQuery()
 {
-	kill_thread(fThread);
+	if (fThread > 0)
+		kill_thread(fThread);
 }
 
 
